@@ -2,40 +2,6 @@
 
 ### **Project for ITS163L: Advanced Computer Network 1**
 
----
-
-### **Members:**
-
-- Chua, Aaron  
-- De Chavez, Paolo  
-- Duldulao, Jacob  
-- Espeno, John  
-- Estaris, Aaron  
-- Ilagan, Kirk  
-- Ong, Anton  
-- Pantalla, Sean  
-- Pua, Richard  
-- Rada, Julian  
-- Sargento, Maxine  
-- Villar, Sean  
-
----
-
-### **Deadline:**
-- **November 14, 2024, 9:15 PM** for 100% working design
-
-### **Duration:**
-- Progress is to be submitted **every class**.
-- **End of class** progress reports must be submitted to the instructor.
-
----
-
-### **Grading Criteria:**
-- **Working** – 100 pts
-- **Partial Working** – 50 pts
-
----
-
 ### **Project Description:**
 
 Design an **ACL network** for a **clinic** with the following specifications:
@@ -63,7 +29,3 @@ Design an **ACL network** for a **clinic** with the following specifications:
 - **DHCPv4** is enabled in the **Patient's Area (R4)**.
 - **RIP** is used for the rest of the network.
 - **OSPFv2** is applied across the **entire network**.
-
----
-
-mwlb: Pxtchvm
