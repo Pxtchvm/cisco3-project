@@ -92,52 +92,6 @@ exit
 
 ---
 
-## Setting up OSPF:
-
-R1:
-router ospf 1
-network 172.16.1.0 0.0.0.255 area 0
-network 172.16.10.0 0.0.0.3 area 0
-network 172.16.10.8 0.0.0.3 area 0
-exit
-
-router ospf 1
-network 172.16.1.0 0.0.0.255 area 0
-network 172.16.10.0 0.0.0.3 area 0
-network 172.16.10.8 0.0.0.3 area 0
-
-
-R2:
-router ospf 1
-network 172.16.4.0 0.0.0.255 area 0
-network 172.16.10.8 0.0.0.3 area 0
-network 172.16.10.12 0.0.0.3 area 0
-exit
-
-R3:
-router ospf 1
-network 172.16.3.0 0.0.0.255 area 0
-network 172.16.6.0 0.0.0.255 area 0
-network 172.16.10.4 0.0.0.3 area 0
-network 172.16.10.16 0.0.0.3 area 0
-exit
-
-R4:
-router ospf 1
-network 172.16.4.0 0.0.0.255 area 0
-network 172.16.10.8 0.0.0.3 area 0
-network 172.16.10.12 0.0.0.3 area 0
-exit
-
-R5:
-router ospf 1
-network 172.16.5.0 0.0.0.255 area 0
-network 172.16.10.12 0.0.0.3 area 0
-network 172.16.10.16 0.0.0.3 area 0
-exit
-
----
-
 ## Setting up RIPv2:
 
 R1:
@@ -176,7 +130,6 @@ network 172.16.5.0
 network 172.16.10.0
 exit
 
-
 ---
 
 ## Setting up DHCP for R4:
@@ -195,6 +148,7 @@ show ip dhcp binding
 
 show ip interface brief
 
+---
 
 ## Setting up the Switches
 
@@ -296,6 +250,90 @@ exit
 ! Save configuration
 end
 write memory
+
+---
+
+## Setting up the ACL config
+
+### Router R1 (Front Desk):
+
+access-list 100 deny ip any 172.16.2.0 0.0.0.255
+access-list 100 deny ip any 172.16.3.0 0.0.0.255
+access-list 100 deny ip any 172.16.5.0 0.0.0.255
+access-list 100 permit tcp 172.16.1.0 0.0.0.255 172.16.4.0 0.0.0.255 eq www
+access-list 100 permit ip 172.16.1.0 0.0.0.255 any
+access-list 100 deny ip any any
+
+interface Serial0/0/0
+ip access-group 100 out
+exit
+
+interface Serial0/0/1
+ip access-group 100 out
+exit
+
+### Router R2 (Doctor's Office):
+
+access-list 110 deny ip any 172.16.2.0 0.0.0.255
+access-list 110 permit ip any any
+
+access-list 110 deny ip any 172.16.2.0 0.0.0.255
+access-list 110 permit ip any any
+
+### Router R3 (Nurse's Area):
+
+access-list 120 permit ip 172.16.2.0 0.0.0.255 172.16.3.0 0.0.0.255
+access-list 120 permit ip 172.16.2.0 0.0.0.255 172.16.6.0 0.0.0.255
+access-list 120 deny ip any 172.16.3.0 0.0.0.255
+access-list 120 deny ip any 172.16.6.0 0.0.0.255
+access-list 120 permit ip any any
+
+interface Serial0/0/0
+ip access-group 120 in
+exit
+
+interface Serial0/0/1
+ip access-group 120 in
+exit
+
+### Router R4 (Patient's Area):
+
+access-list 130 deny ip 172.16.4.0 0.0.0.255 any
+access-list 130 permit ip 172.16.4.0 0.0.0.255 any
+
+access-list 131 permit tcp 172.16.1.0 0.0.0.255 172.16.4.0 0.0.0.255 eq www
+access-list 131 deny ip 172.16.1.0 0.0.0.255 172.16.4.0 0.0.0.255
+access-list 131 permit ip any any
+
+interface Serial0/0/0
+ip access-group 131 in
+exit
+
+interface Serial0/0/1
+ip access-group 131 in
+exit
+
+interface GigabitEthernet0/0
+ip access-group 130 out
+exit
+
+### Router R5 (Systems Administration):
+
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.1.0 0.0.0.255
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.2.0 0.0.0.255
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.3.0 0.0.0.255
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.6.0 0.0.0.255
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.4.0 0.0.0.255
+access-list 140 permit ip 172.16.5.0 0.0.0.255 172.16.7.0 0.0.0.255
+access-list 140 deny ip any any
+
+interface Serial0/0/0
+ip access-group 140 out
+exit
+
+interface Serial0/0/1
+ip access-group 140 out
+exit
 
 
 
