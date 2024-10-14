@@ -196,10 +196,106 @@ show ip dhcp binding
 show ip interface brief
 
 
+## Setting up the Switches
 
+### Switch1:
+configure terminal
+hostname Switch1
 
+! Configure interfaces connected to R5 and other switches
+interface FastEthernet0/1
+description Connected to R5 Gig0/0
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
 
+interface FastEthernet0/2
+description Connected to Switch2 Fa0/1
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
 
+interface FastEthernet0/3
+description Connected to Switch2 Fa0/2
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+interface FastEthernet0/4
+description Connected to Switch3 Fa0/1
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+! Save configuration
+end
+write memory
+
+### Switch2:
+
+configure terminal
+hostname Switch2
+
+! Configure interfaces connected to Switch1 and Switch3
+interface FastEthernet0/1
+description Connected to Switch1 Fa0/2
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+interface FastEthernet0/2
+description Connected to Switch1 Fa0/3
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+interface FastEthernet0/3
+description Connected to Switch3 Fa0/2
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+! Save configuration
+end
+write memory
+
+### Switch3:
+
+configure terminal
+hostname Switch3
+
+! Configure interfaces connected to Switch1, Switch2, and PC4
+interface FastEthernet0/1
+description Connected to Switch1 Fa0/4
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+interface FastEthernet0/2
+description Connected to Switch2 Fa0/3
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+interface FastEthernet0/3
+description Connected to PC4
+switchport mode access
+switchport access vlan 1
+no shutdown
+exit
+
+! Save configuration
+end
+write memory
 
 
 
