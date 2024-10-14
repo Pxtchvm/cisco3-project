@@ -44,10 +44,6 @@ This table lists each **PC**, the **connected router**, the **LAN subnet** it re
 | PC3    | R3 (Nurse's Area B)    | 172.16.6.0/24     | 172.16.6.2              | 255.255.255.0 (/24) | 172.16.6.1          |
 | PC5    | R4 (Patient's Area)    | 172.16.4.0/24     | 172.16.4.2              | 255.255.255.0 (/24) | 172.16.4.1          |
 
-> **Note:** 
-> - **PC4** appears to be absent based on your initial project description. Ensure that all PCs are correctly accounted for in your network design.
-> - **Subnet Masks** are provided in both decimal and CIDR notation for clarity.
-
 ---
 
 ## **4. Summary of Router Interface Configurations**
