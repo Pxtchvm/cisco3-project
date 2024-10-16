@@ -75,9 +75,6 @@ connected to LAN3b
 PC5:
 connected to LAN4
 
-
-Actually there's more information that I've been withholding about the topology:
-
 R5 is connected to Switch1 (Fa0/1) through Gig0/0
 
 Switch1:
