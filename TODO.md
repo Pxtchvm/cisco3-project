@@ -1,3 +1,7 @@
+1. ACL subnetting
+2. OSPFv2 for the whole network
+3. WiFi for R4???!
+
 ## **1. Updated Network Summary Tables**
 
 ### **1.1. LANs, Switches, and Router Interfaces**
